@@ -1,0 +1,34 @@
+<!DOCTYPE uidetails>
+<OpListScreenList>
+ <OpListScreen type="default" name="Administration">
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+ </OpListScreen>
+ <OpListScreen type="default" name="Management">
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+  <operation name="DefineStructure"/>
+ </OpListScreen>
+</OpListScreenList>

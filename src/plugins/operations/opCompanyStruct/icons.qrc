@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>resources/icons/organizational_structure.jpg</file>
+    </qresource>
+</RCC>
