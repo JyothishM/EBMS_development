@@ -20,12 +20,13 @@ class CONTROLLIBSHARED_EXPORT SearchFilterListView : public QWidget
 public:
     explicit SearchFilterListView(QWidget *parent = 0);
     ~SearchFilterListView();
-    QListView* getTableView();
+    QListView* getListView();
     virtual void setModel(QAbstractItemModel* model);
     void setSearchFilterProxyHelper(iSearchFilterProxyHelper* SeachFilterHelper);
     iSearchFilterProxyHelper* getSearchFilterProxyHelper();
     void setSearchTypes(QStringList& types);
     QStringList getSearchTypes();
+    QVariant selectedValue(bool* ok=0);
 protected:
     virtual SortFilterProxyModel* createProxyModel(QObject* parent);
 private:

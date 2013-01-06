@@ -22,13 +22,15 @@ DEFINES += CONTROLLIB_LIBRARY
 SOURCES += \
     librarybutton.cpp \
     searchfilterlistview.cpp \
-    sortfilterproxymodel.cpp
+    sortfilterproxymodel.cpp \
+    librarydialog.cpp
 
 HEADERS +=\
         ControlLib_global.h \
     librarybutton.h \
     searchfilterlistview.h \
-    sortfilterproxymodel.h
+    sortfilterproxymodel.h \
+    librarydialog.h
 
 INCLUDEPATH += $${PWD}/../interfaces\
         $${PWD}/../Utilities
@@ -42,4 +44,5 @@ RESOURCES += \
     icons.qrc
 
 FORMS += \
-    searchfilterlistview.ui
+    searchfilterlistview.ui \
+    librarydialog.ui

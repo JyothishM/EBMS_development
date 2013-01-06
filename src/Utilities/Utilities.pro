@@ -6,6 +6,8 @@
 
 QT       -= gui
 
+QT       += xml
+
 CONFIG(debug, debug|release) {
      BUILDTYPE = 'debug'
  } else {
@@ -22,7 +24,8 @@ DEFINES += UTILITIES_LIBRARY
 SOURCES += \
     csv/csvwriter.cpp \
     csv/csvreader.cpp \
-    logger.cpp
+    logger.cpp \
+    library.cpp
 
 HEADERS +=\
         Utilities_global.h \
@@ -30,4 +33,9 @@ HEADERS +=\
     csv/csvreader.h \
     csv/CSVcommon.h \
     logger.h \
-    orderedhash.h
+    orderedhash.h \
+    library.h
+
+INCLUDEPATH += $${PWD}/../interfaces
+
+DEPENDPATH += $${PWD}/../interfaces

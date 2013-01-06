@@ -17,7 +17,7 @@ SearchFilterListView::~SearchFilterListView()
     delete ui;
 }
 
-QListView* SearchFilterListView::getTableView()
+QListView* SearchFilterListView::getListView()
 {
     return ui->listView;
 }
@@ -62,6 +62,37 @@ QStringList SearchFilterListView::getSearchTypes()
         items.append(ui->ComboType->itemText(i));
     }
     return items;
+}
+
+QVariant SearchFilterListView::selectedValue(bool* ok)
+{
+    bool succes = false;
+    QVariant val;
+    if(mSortFilterProxyModel)
+    {
+        QItemSelectionModel* selModel = ui->listView->selectionModel();
+        if(selModel)
+        {
+            QModelIndexList indexList = selModel->selectedIndexes();
+            if(!indexList.isEmpty())
+            {
+                QModelIndex index = indexList.first();
+                //QModelIndex SourceIndex = mSortFilterProxyModel->mapToSource(index);
+                val = mSortFilterProxyModel->data(index);
+                succes = true;
+            }
+        }
+//        QModelIndex index = ui->listView->currentIndex();
+//        val = mSortFilterProxyModel->data(index);
+//        succes = true;
+    }
+
+    if(ok)
+    {
+        *ok = succes;
+    }
+
+    return val;
 }
 
 SortFilterProxyModel* SearchFilterListView::createProxyModel(QObject* parent)
