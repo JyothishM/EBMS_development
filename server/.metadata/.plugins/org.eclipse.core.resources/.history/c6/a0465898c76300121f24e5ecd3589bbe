@@ -1,0 +1,31 @@
+package ebms.server.client.test;
+
+import java.rmi.RemoteException;
+
+import org.apache.axis2.AxisFault;
+
+import ebms.server.EBMS_serverClassStub;
+import ebms.server.EBMS_serverClassStub.*;
+
+public class EBMSclientTestClass {
+
+	public static void main(String[] args) {
+		
+			//EBMS_
+		try
+		{
+			EBMS_serverClassStub serverStub = new EBMS_serverClassStub();
+			
+			Login login = new Login();
+			login.setUser("jyothish");
+			login.setPassword("jyo123#");	
+			LoginResponse loginResp = serverStub.login(login);
+			
+			System.out.println(loginResp.toString());
+		}catch(RemoteException ex)
+		{
+			System.out.println("RemoteException :" +ex.getMessage());
+		}
+	}
+
+}

@@ -1,0 +1,208 @@
+package ebms.server.core.pkj;
+
+import ebms.server.core.interfaces.ServerInterface;
+import ebms.server.core.impl.Connector;
+import ebms.server.core.interfaces.EBMSConnectorInterface;
+import ebms.server.core.pkj.EBMS_consts;
+import ebms.server.core.pkj.EBMS_consts.TblPrevilageTable;
+import ebms.server.core.pkj.EBMS_consts.TblUserLogin;
+
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+
+public class Server implements ServerInterface {
+	
+	public Server() {
+		boolean bConstinit = EBMS_consts.initConsts();
+		System.out.println( "Constinit :" + bConstinit );
+		mConnector = createConnector();
+	}
+
+	@Override
+	public String doOperation(String user,String password,String level,String oper) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean hasPrivilege(String user,String password,String level,String oper) {
+		boolean bHasPrivilage=false;
+		if(login(user,password))
+		{
+			String operType = readString("operations","op_type","op_name='addsubsystem'");
+			System.out.println( "operType =" + operType );
+		}
+		return bHasPrivilage;
+	}
+
+	@Override
+	public boolean login(String user, String password) {
+		
+		boolean bLogin = false;
+		String loginquery = String.format("%s='%s' or %s='%s' and %s='%s' and %s='%s'",
+				EBMS_consts.TblUserLogin.fieldUserId, user,
+				EBMS_consts.TblUserLogin.fieldUsername, user,
+				EBMS_consts.TblUserLogin.fieldPassword, password,
+				EBMS_consts.TblUserLogin.fieldState, EBMS_consts.TblUserLogin.fieldState_rqdValue);
+		
+		int count = findCount(EBMS_consts.TblUserLogin.tablename,loginquery);
+		bLogin = (count==1);
+		return bLogin;
+	}
+	
+	protected   EBMSConnectorInterface createConnector() {
+		return new Connector();
+	}
+	
+	private int findCount(String tablename,String query) {
+		int count = 0;
+		try
+		{
+			boolean bOpened = mConnector.openDb();
+			System.out.println( "Connecting :" + bOpened );
+			if(bOpened)
+			{
+				query = String.format("select * from %s where %s",
+						tablename,
+						query);
+				System.out.println( "query :" + query );
+				ResultSet result = mConnector.execute(query);
+				
+				// finding the result count        
+				while(result.next())
+				{
+					count++;
+				}	
+				mConnector.closeDb();	
+			}
+		}catch(SQLException ex)
+		{
+			System.out.println( "SQLException :" + ex.getMessage() );
+		}
+		return count;
+	}
+
+	private boolean tableContains(String tablename,String query) {
+		boolean bContains=false;
+		try
+		{
+			boolean bOpened = mConnector.openDb();
+			System.out.println( "Connecting :" + bOpened );
+			if(bOpened)
+			{
+				query = String.format("select * from %s where %s",
+						tablename,
+						query);
+				System.out.println( "query :" + query );
+				ResultSet result = mConnector.execute(query);
+				
+				// finding the result count        
+				if(result.next())
+				{
+					bContains = true;
+				}	
+				mConnector.closeDb();	
+			}
+		}catch(SQLException ex)
+		{
+			System.out.println( "SQLException :" + ex.getMessage() );
+		}
+		return bContains;
+	}
+	
+	private String readString(String tablename,String field,String query) {
+		String valStr = null;
+		try
+		{
+			boolean bOpened = mConnector.openDb();
+			System.out.println( "Connecting :" + bOpened );
+			if(bOpened)
+			{
+				query = String.format("select %s from %s where %s",
+						field,
+						tablename,
+						query);
+				System.out.println( "query :" + query );
+				ResultSet result = mConnector.execute(query);
+				if(result.next())
+				{
+					valStr = result.getString(field);
+				}
+				mConnector.closeDb();	
+			}
+		}catch(SQLException ex)
+		{
+			System.out.println( "SQLException :" + ex.getMessage() );
+		}
+		return valStr;
+	}
+	
+	private String checkPrivilage(String userid,String systemid,String oper){
+		String status=null;
+		String query = String.format("%s='%s' and %s='%s' and %s='%s'",
+				EBMS_consts.TblPrevilageTable.fieldUserId,userid,
+				EBMS_consts.TblPrevilageTable.fieldSystemId,systemid,
+				EBMS_consts.TblPrevilageTable.fieldOperation,oper);
+		status = readString(EBMS_consts.TblPrevilageTable.tablename,
+				EBMS_consts.TblPrevilageTable.fieldStatus,
+				query);
+		
+		return status;
+	}
+	
+	private String checkPrivilageForOperation(String userid,String systemid,String oper) {
+		String status=checkPrivilage(userid,systemid,oper);
+		if(status.isEmpty())
+		{
+			String opType = readString(EBMS_consts.TblOperations.tablename,
+					EBMS_consts.TblOperations.fieldOp_type,
+					String.format("%s='%s'", EBMS_consts.TblOperations.fieldOp_name,oper));
+			if(!opType.isEmpty())
+			{
+				status=checkPrivilage(userid,systemid,opType);
+			}
+		}
+		
+		if(status.isEmpty())       // checking for 'any' clause
+		{
+			status=checkPrivilage(userid,systemid,EBMS_consts.fieldVal_any);
+		}
+		
+		return status;
+	}
+	
+	private String checkPrivilageForSystemAndOper(String userid,String systemid,String oper){
+		String status=checkPrivilageForOperation(userid,systemid,oper);
+		if(status.isEmpty())
+		{
+			String sysType = readString(EBMS_consts.TblSystemHierarchy.tablename,
+					EBMS_consts.TblSystemHierarchy.fieldSystemType,
+					String.format("%s='%s'", EBMS_consts.TblSystemHierarchy.fieldSystemId,systemid));
+			status=checkPrivilageForOperation(userid,sysType,oper);
+		}
+		
+		if(status.isEmpty())       // checking for 'any' clause
+		{
+			status=checkPrivilageForOperation(userid,EBMS_consts.fieldVal_any,oper);
+		}
+		
+		return status;
+	}
+	
+	private String checkPrivilageAllOptions(String userid,String systemid,String oper){
+		String status=checkPrivilageForSystemAndOper(userid,systemid,oper);
+		if(status.isEmpty())
+		{
+			String userType = readString(EBMS_consts.TblUserLogin.tablename,
+					EBMS_consts.TblUserLogin.fieldUserType,
+					String.format("%s='%s'", EBMS_consts.TblUserLogin.fieldUserId,userid));
+			status=checkPrivilageForSystemAndOper(userType,systemid,oper);
+		}
+		return status;
+	}
+	
+	private EBMSConnectorInterface mConnector;
+
+}

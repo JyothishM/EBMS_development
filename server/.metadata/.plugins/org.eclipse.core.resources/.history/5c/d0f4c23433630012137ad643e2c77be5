@@ -1,0 +1,19 @@
+package ebms.server;
+
+import ebms.server.core.pkj.Server;
+import ebms.server.core.interfaces.ServerInterface;
+
+public class EBMS_serverClass {
+	
+	public EBMS_serverClass(){
+		mServer = createServer();
+	}
+
+	
+	private ServerInterface createServer(){
+		return new Server();
+	} 
+	
+	private ServerInterface mServer=null;
+
+}

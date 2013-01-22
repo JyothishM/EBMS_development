@@ -1,0 +1,9 @@
+<!DOCTYPE LibraryContainer>
+<libraryList>
+ <library name="valuelib">
+  <values string="teststring" value="5.79"/>
+ </library>
+ <library name="jyothish">
+  <values string="jyothish" value="23.3"/>
+ </library>
+</libraryList>

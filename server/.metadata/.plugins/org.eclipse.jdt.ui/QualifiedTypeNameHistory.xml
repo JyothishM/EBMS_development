@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="ebms.server.core.interfaces.connector.EBMSConnectorInterface"/>
+<fullyQualifiedTypeName name="java.util.Properties"/>
+<fullyQualifiedTypeName name="java.io.FileInputStream"/>
+<fullyQualifiedTypeName name="java.sql.DriverManager"/>
+<fullyQualifiedTypeName name="ebms.server.core.impl.Connector"/>
+<fullyQualifiedTypeName name="ebms.server.core.interfaces.EBMSConnectorInterface"/>
+<fullyQualifiedTypeName name="java.sql.SQLException"/>
+<fullyQualifiedTypeName name="ebms.server.core.interfaces.ServerInterface"/>
+<fullyQualifiedTypeName name="ebms.server.core.pkj.Server"/>
+<fullyQualifiedTypeName name="ebms.server.core.pkj.EBMS_consts"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="ebms.server.core.pkj.EBMS_consts.TblOperations"/>
+<fullyQualifiedTypeName name="ebms.server.core.pkj.EBMS_consts.TblUserLogin"/>
+<fullyQualifiedTypeName name="ebms.server.core.pkj.EBMS_consts.TblSystemHierarchy"/>
+<fullyQualifiedTypeName name="ebms.server.core.pkj.EBMS_consts.TblPrevilageTable"/>
+<fullyQualifiedTypeName name="ebms.server.EBMS_serverClassStub"/>
+<fullyQualifiedTypeName name="ebms.server.EBMS_serverClassStub.Login"/>
+<fullyQualifiedTypeName name="ebms.server.EBMS_serverClass"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="java.io.InputStream"/>
+</qualifiedTypeNameHistroy>

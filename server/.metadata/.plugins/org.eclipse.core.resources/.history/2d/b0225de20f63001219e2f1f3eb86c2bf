@@ -1,0 +1,104 @@
+package ebms.server.core.impl;
+
+import ebms.server.core.pkj.EBMS_consts;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Properties;
+import java.sql.PreparedStatement;
+import com.mysql.jdbc.Driver;
+
+import ebms.server.core.interfaces.EBMSConnectorInterface;
+
+public class Connector implements EBMSConnectorInterface {
+	
+//	@Override
+//	void setTraceLevel(int trace){
+//		mTraceLevel = trace;
+//	}
+
+	@Override
+	public boolean openDb(){	
+		boolean bConnected = createConnection();	
+		return bConnected;
+	}
+
+	@Override
+	public boolean closeDb() {	
+		boolean bClosed=false;	
+		try {
+			mConnection.close();
+			bClosed = true;
+		} catch (SQLException e) {
+			bClosed = false;
+			e.printStackTrace();
+		}
+		return bClosed;
+	}
+
+	@Override
+	public ResultSet execute(String query)
+	{
+		if(!isOpen())
+			return null;
+		PreparedStatement statement;
+		ResultSet result = null;
+		try {
+			statement = mConnection.prepareStatement(query);
+			result = statement.executeQuery();
+			return result; 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	@Override
+	public boolean isOpen() {
+		boolean bOpenState=false;
+		try {
+			bOpenState = !mConnection.isClosed();
+		} catch (SQLException e) {
+			bOpenState = false;
+			e.printStackTrace();
+		}
+		return bOpenState;
+	}
+
+	
+	private boolean createConnection() {
+		   
+		boolean bConnected = false;
+		try{
+		        System.out.println("Connecting..");
+		        Class.forName(EBMS_consts.dbDrivername);
+		        mConnection = (Connection)DriverManager.getConnection(EBMS_consts.dbHost, 
+														        		EBMS_consts.dbUsername, 
+														        		EBMS_consts.dbPassWord);
+		        System.out.println("CONNECTION: " + mConnection);       
+		        bConnected = true;
+		        
+			} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+				bConnected = false;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				bConnected = false;
+			}
+        return bConnected;
+    }
+	
+	boolean logState()
+	{
+		return mTraceLevel<=2;
+	}
+	
+	private Connection mConnection=null;
+	private int mTraceLevel=1;
+
+}

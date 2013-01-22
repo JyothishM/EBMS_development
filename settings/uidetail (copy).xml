@@ -1,0 +1,13 @@
+<!DOCTYPE uidetails>
+<OpListScreenList>
+ <OpListScreen type="default" name="Administration">
+	<operation  type="default" name="DefineStructure"/>
+	<operation  type="default" name="DefineStructure"/>
+	<operation  type="default" name="DefineStructure"/>
+</OpListScreen>
+ <OpListScreen type="default" name="Administration2"/>
+ <OpListScreen type="default" name="Administration3"/>
+ <OpListScreen type="default" name="Management"/>
+ <OpListScreen type="default" name="Accounts"/>
+ <OpListScreen type="default" name="Others"/>
+</OpListScreenList>

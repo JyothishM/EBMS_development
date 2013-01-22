@@ -1,0 +1,12 @@
+package ebms.server.core.interfaces;
+
+public interface ServerInterface {
+	
+	boolean startServer();
+	boolean stopServer();
+	boolean login(String user,String password);
+	boolean logout(String user);
+	boolean loginState();
+	boolean hasPrivilege(String user,String level,String oper);
+	String doOperation(String user,String level,String oper);
+}

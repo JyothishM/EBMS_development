@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="EBMS_jelastic_testclient">
+        <property name="context-root" value="EBMS_jelastic_testclient"/>
+    </wb-module>
+</project-modules>

@@ -1,0 +1,105 @@
+package ebms.server.core.pkj;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
+public class EBMS_consts {
+
+	public static String dbHost;
+	public static String dbUsername;
+	public static String dbPassWord;
+	public static String dbDrivername;
+
+	public static String fieldVal_any;
+	// tables
+	
+	public static class TblUserLogin {
+		public static String tablename;
+		public static String fieldUserId;
+		public static String fieldUsername;
+		public static String fieldPassword;
+		public static String fieldState;
+		public static String fieldUserType;
+		public static String fieldState_rqdValue;
+	}
+	
+	public static class TblSystemHierarchy {
+		public static String tablename;
+		public static String fieldSystemId;
+		public static String fieldSystemname;
+		public static String fieldParentId;
+		public static String fieldSystemType;
+	}
+	
+	
+	public static class TblPrevilageTable {
+		public static String tablename;
+		public static String fieldUserId;
+		public static String fieldSystemId;
+		public static String fieldOperation;
+		public static String fieldStatus;
+		public static String fieldStatus_rqdValue;
+	}
+	
+	public static class TblOperations {
+		public static String tablename;
+		public static String op_name;
+		public static String op_type;
+	}
+	
+	public static boolean initConsts() {
+		boolean succes=false;
+		try {
+			
+			Properties prop = new Properties();
+			prop.load(new FileInputStream("../DbConfig.cfg"));
+			dbHost = prop.getProperty("host").toString();
+			dbUsername = prop.getProperty("username").toString();
+			dbPassWord = prop.getProperty("password").toString();
+			dbDrivername = prop.getProperty("driver").toString();
+			fieldVal_any = "any";
+			
+			// user login table
+			TblUserLogin.tablename = prop.getProperty("dbTblUserlogin").toString();
+			TblUserLogin.fieldUserId = "id";
+			TblUserLogin.fieldUsername = "username";
+			TblUserLogin.fieldPassword = "password";
+			TblUserLogin.fieldState = "state";
+			TblUserLogin.fieldUserType = "usertype";
+			TblUserLogin.fieldState_rqdValue = "active";
+			
+			// system hierarchy table
+			TblSystemHierarchy.tablename = prop.getProperty("dbTblSystemHierarchy").toString();
+			TblSystemHierarchy.fieldSystemId = "systemid";
+			TblSystemHierarchy.fieldSystemname = "systemname";
+			TblSystemHierarchy.fieldParentId = "parentid";
+			TblSystemHierarchy.fieldSystemType = "sytemtype";
+			
+			// previlagetable
+			TblPrevilageTable.tablename = prop.getProperty("dbTblPrevilageTable").toString();
+			TblPrevilageTable.fieldUserId = "userid";
+			TblPrevilageTable.fieldSystemId = "systemid";
+			TblPrevilageTable.fieldOperation = "operation";
+			TblPrevilageTable.fieldStatus = "status";
+			TblPrevilageTable.fieldStatus_rqdValue = "enabled";
+			
+			// operations table
+			TblOperations.tablename = prop.getProperty("dbTblOperations").toString();
+			TblOperations.op_name = "op_name";
+			TblOperations.op_type = "op_type";
+			
+			succes = true;
+		} catch (FileNotFoundException e) {
+			succes = false; 
+			e.printStackTrace();
+		} catch (IOException e) {
+			succes = false; 
+			e.printStackTrace();
+		}
+		return succes;
+	}
+	
+
+}

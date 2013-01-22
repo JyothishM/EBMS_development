@@ -1,0 +1,28 @@
+package ebms.jelastic.test;
+
+import java.rmi.RemoteException;
+
+import org.apache.axis2.AxisFault;
+
+import ebms.server.EBMS_serverClassPortTypeProxy;
+import ebms.server.EBMS_serverClassStub;
+import ebms.server.EBMS_serverClassStub.*;
+
+public class EBMSclientTestClass {
+
+	public static void main(String[] args) {
+		
+		try
+		{			
+			EBMS_serverClassPortTypeProxy serverProxy = new EBMS_serverClassPortTypeProxy();
+			boolean bLogin = serverProxy.login("jyothish","jyo123#");
+			System.out.println("Login :" + bLogin);
+			
+			
+		}catch(RemoteException ex)
+		{
+			System.out.println("RemoteException :" +ex.getMessage());
+		}
+	}
+
+}

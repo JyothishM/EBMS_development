@@ -1,0 +1,4 @@
+eclipse.preferences.version=1
+encoding//src/ebms/server/EBMS_serverClass.java=UTF-8
+encoding//src/ebms/server/EBMS_serverClassPortType.java=UTF-8
+encoding//src/ebms/server/EBMS_serverClassSoap11BindingStub.java=UTF-8

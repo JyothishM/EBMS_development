@@ -1,0 +1,13 @@
+package ebms.server.test;
+
+public class EBMS_serverTestClass {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

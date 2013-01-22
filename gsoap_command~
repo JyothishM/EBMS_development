@@ -1,0 +1,8 @@
+mkdir src/gsoap_files
+
+cd src/gsoap_files/
+
+wsdl2h -o EBMS_serverClass.h http://localhost:8080/EBMS_server/services/EBMS_serverClass?wsdl
+
+soapcpp2 EBMS_serverClass.h -I'/usr/local/share/gsoap/import:/usr/local/share/gsoap/custom'
+

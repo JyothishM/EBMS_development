@@ -1,0 +1,30 @@
+package ebms.server;
+
+import ebms.server.core.pkj.Server;
+import ebms.server.core.interfaces.ServerInterface;
+
+public class EBMS_serverClass {
+	
+	public EBMS_serverClass(){
+		mServer = createServer();
+	}
+	
+	boolean login(String user,String password){
+		return mServer.login(user, password);
+	}
+	
+	boolean hasPrivilege(String user,String password,String level,String oper){
+		return mServer.hasPrivilege(user,password,level,oper);
+	}
+	String doOperation(String user,String password,String level,String oper){
+		return mServer.doOperation(user, password, level, oper);
+	}
+
+	
+	private ServerInterface createServer(){
+		return new Server();
+	} 
+	
+	private ServerInterface mServer=null;
+
+}

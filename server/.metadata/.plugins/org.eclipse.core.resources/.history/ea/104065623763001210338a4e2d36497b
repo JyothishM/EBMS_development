@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="EBMS_testClient">
+        <property name="context-root" value="EBMS_testClient"/>
+        <property name="java-output-path" value="/EBMS_testClient/build/classes"/>
+    </wb-module>
+</project-modules>
